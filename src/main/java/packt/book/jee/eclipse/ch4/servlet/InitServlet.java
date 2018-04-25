@@ -21,7 +21,7 @@ public class InitServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
     	try {
 			DatabaseConnectionFactory.getConnectionFactory().init();
-			// System.out.println("init success");
+			System.out.println("init success");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

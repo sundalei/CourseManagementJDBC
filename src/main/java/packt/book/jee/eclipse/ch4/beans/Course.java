@@ -2,6 +2,7 @@ package packt.book.jee.eclipse.ch4.beans;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import packt.book.jee.eclipse.ch4.dao.CourseDAO;
 
@@ -12,6 +13,8 @@ public class Course {
 	private String name;
 	
 	private int credits;
+	
+	private Teacher teacher;
 	
 	private CourseDAO courseDAO = new CourseDAO();
 
@@ -39,11 +42,23 @@ public class Course {
 		this.credits = credits;
 	}
 	
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
 	public boolean isValidCourse() {
 		return name != null && credits != 0;
 	}
 	
 	public void addCourse() throws IOException, SQLException {
 		CourseDAO.addCourse(this);
+	}
+	
+	public List<Course> getCourses() throws IOException, SQLException {
+		return courseDAO.getCourses();
 	}
 }

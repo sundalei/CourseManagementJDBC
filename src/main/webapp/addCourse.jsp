@@ -45,7 +45,7 @@
     <form method="post">
         Name: <input type="text" name="name"><br>
         Credits: <input type="text" name="credits"><br>
-        <button type="submit" name="submit" value="submit">Add</button>
+        <button type="submit" name="submit">Add</button>
     </form>
 </body>
 </html>

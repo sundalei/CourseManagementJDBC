@@ -7,7 +7,10 @@ import java.util.List;
 import packt.book.jee.eclipse.ch4.dao.TeacherDAO;
 
 public class Teacher extends Person {
+	
 	private String designation;
+	
+	private TeacherDAO teacherDao = new TeacherDAO();
 
 	public String getDesignation() {
 		return designation;
@@ -25,7 +28,7 @@ public class Teacher extends Person {
 		TeacherDAO.addTeacher(this);
 	}
 	
-	public List<Teacher> getTeachers() {
-		return null;
+	public List<Teacher> getTeachers() throws IOException, SQLException {
+		return teacherDao.getTeachers();
 	}
 }

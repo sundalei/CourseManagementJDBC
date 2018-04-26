@@ -63,7 +63,7 @@ public class TeacherDAO {
 				teacher.setDesignation(rs.getString("designation"));
 				teachers.add(teacher);
 			}
-			System.out.println(teachers);
+			//System.out.println(teachers);
 			return teachers;
 		} finally {
 			try {

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,19 @@ public class CourseDAO {
 	public static void addCourse(Course course) throws IOException, SQLException {
 		// get connection from connection pool
 		Connection con = DatabaseConnectionFactory.getConnectionFactory().getConnection();
+		
 		try {
-			final String sql = "insert into Course (name, credits) values (?, ?)";
+			final String sql = "insert into Course (name, credits, Teacher_id) values (?, ?, ?)";
 			// create the prepared statement with an option to get auto-generated keys
 			PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			// set parameters
 			stmt.setString(1, course.getName());
 			stmt.setInt(2, course.getCredits());
+			if(course.getTeacherId() == 0) {
+				stmt.setNull(3, Types.INTEGER);
+			} else {
+				stmt.setInt(3, course.getTeacherId());
+			}
 			
 			stmt.execute();
 			// Get auto-generated keys

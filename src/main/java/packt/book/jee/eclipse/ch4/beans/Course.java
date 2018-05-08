@@ -5,20 +5,23 @@ import java.sql.SQLException;
 import java.util.List;
 
 import packt.book.jee.eclipse.ch4.dao.CourseDAO;
+import packt.book.jee.eclipse.ch4.exception.EnrollmentFullException;
 
 public class Course {
-	
+
 	private int id;
-	
+
 	private String name;
-	
+
 	private int credits;
-	
+
 	private int teacherId;
-	
+
 	private Teacher teacher;
-	
+
 	private CourseDAO courseDAO = new CourseDAO();
+	
+	private int maxStudents;
 
 	public int getId() {
 		return id;
@@ -43,7 +46,7 @@ public class Course {
 	public void setCredits(int credits) {
 		this.credits = credits;
 	}
-	
+
 	public int getTeacherId() {
 		return teacherId;
 	}
@@ -60,15 +63,35 @@ public class Course {
 		this.teacher = teacher;
 	}
 
-	public boolean isValidCourse() {
-		return name != null && credits != 0;
+	public void setCourseDAO(CourseDAO courseDAO) {
+		this.courseDAO = courseDAO;
 	}
-	
+
+	public boolean isValidCourse() {
+		return name != null && credits != 0 && name.trim().length() > 0;
+	}
+
 	public void addCourse() throws IOException, SQLException {
 		CourseDAO.addCourse(this);
 	}
-	
+
 	public List<Course> getCourses() throws IOException, SQLException {
 		return courseDAO.getCourses();
+	}
+
+	public void addStudent(Student student) throws EnrollmentFullException {
+		int currentEnrollment = courseDAO.getNumStudentsInCourse(id);
+		if(currentEnrollment >= getMaxStudents()) {
+			throw new EnrollmentFullException("Course if full. Enrolment closed");
+		}
+		courseDAO.enrolStudentInCourse(id, student.getId());
+	}
+	
+	public int getMaxStudents() {
+		return maxStudents;
+	}
+
+	public void setMaxStudents(int maxStudents) {
+		this.maxStudents = maxStudents;
 	}
 }

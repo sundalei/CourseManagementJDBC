@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import packt.book.jee.eclipse.ch4.beans.Course;
+import packt.book.jee.eclipse.ch4.beans.Student;
 import packt.book.jee.eclipse.ch4.beans.Teacher;
 import packt.book.jee.eclipse.ch4.db.connection.DatabaseConnectionFactory;
 
@@ -100,5 +101,13 @@ public class CourseDAO {
 				
 			}
 		}
+	}
+	
+	public int getNumStudentsInCourse(int id) {
+		return id + 1;
+	}
+	
+	public void enrolStudentInCourse(int id, int studentId) {
+		System.out.println("success");
 	}
 }
